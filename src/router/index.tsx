@@ -16,13 +16,21 @@ import DoctorAdmin from '../pages/menu/doctorAdmin';
 import DiagnosisAdmin from '../pages/menu/diagnosisAdmin';
 import FeeAdmin from '../pages/menu/feeAdmin';
 import SignUp from '../pages/signUp';
+import Init from '../pages/init';
+import BindDoctorInfo from '../pages/signUp/bindDoctorInfo';
+import BindSuccess from '../pages/signUp/bindSuccess';
+import BindPatientInfo from '../pages/signUp/bindPatientInfo';
 
 export default function router() {
     return (
         <Routes>
-            <Route path='*' element={<Login />}></Route>
+            <Route path='*' element={<Init />}></Route>
+            <Route path='/init' element={<Init />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/sign-up' element={<SignUp />}></Route>
+            <Route path='/bind-info/doctor' element={<BindDoctorInfo />}></Route>
+            <Route path='/bind-info/patient' element={<BindPatientInfo />}></Route>
+            <Route path='/bind-success/:account/:password' element={<BindSuccess />}></Route>
             <Route path='/menu' element={<IMenu />}>
                 <Route path='/menu/fee_admin' element={<FeeAdmin />}></Route>
                 <Route path='/menu/diagnosis_admin' element={<DiagnosisAdmin />}></Route>

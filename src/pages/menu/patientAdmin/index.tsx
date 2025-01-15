@@ -1,6 +1,8 @@
 import { Table } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { apiGetAllPatient } from '../../../api';
+import UpdatePatientButton from './updatePatientAdmin';
+import DeletePatientButton from './deletePatientButton';
 
 export default function PatientAdmin() {
     const [patient, setPatient] = useState<any>();
@@ -50,11 +52,6 @@ export default function PatientAdmin() {
                 title: '联系电话',
                 dataIndex: 'ptel',
                 key: 'ptel'
-            },
-            {
-                title: '用户名',
-                dataIndex: 'puserName',
-                key: 'puserName'
             }
     ];
 
@@ -76,6 +73,8 @@ export default function PatientAdmin() {
 
   return (
     <>
+        <UpdatePatientButton getPatientList={getPatientList} />
+        <DeletePatientButton getPatientList={getPatientList} columns={columns} patient={patient} />
         <Table columns={columns} dataSource={patient} />
     </>
   )

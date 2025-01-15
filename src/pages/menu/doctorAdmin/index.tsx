@@ -1,6 +1,8 @@
 import { Table } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { apiGetAllDoctor } from '../../../api';
+import UpdateDoctorButton from './updateButton';
+import DeleteDoctorButton from './deleteDoctorButton';
 
 export default function DoctorAdmin() {
     const [doctor, setDoctor] = useState<any>();
@@ -61,6 +63,8 @@ export default function DoctorAdmin() {
 
   return (
     <>
+        <UpdateDoctorButton getDoctorList={getDoctorList}  />
+        <DeleteDoctorButton getDoctorList={getDoctorList} columns={columns} doctor={doctor} />
         <Table columns={columns} dataSource={doctor} />
     </>
   )

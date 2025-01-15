@@ -1,6 +1,8 @@
 import { Table } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { apiGetAllFee } from '../../../api';
+import UpdateFeeButton from './updateFeeButton';
+import DeleteFeeButton from './deleteFeeButton';
 
 const addOption = (feeList: any): void => {
     if (feeList) {
@@ -33,11 +35,6 @@ export default function FeeAdmin() {
                 title: '处方编号',
                 dataIndex: 'rno',
                 key: 'rno',
-            },
-            {
-                title: '诊断医生',
-                dataIndex: 'dno',
-                key: 'dno'
             },
             {
                 title: '收银员',
@@ -85,6 +82,8 @@ export default function FeeAdmin() {
 
   return (
     <>
+        <UpdateFeeButton getFeeList={getFeeList} />
+        <DeleteFeeButton getFeeList={getFeeList} columns={columns} fee={fee} />
         <Table columns={columns} dataSource={fee} />
     </>
   )

@@ -1,6 +1,8 @@
 import { Table } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { apiGetAllUser } from '../../../api';
+import UpdateUserButton from './updateUserButton';
+import DeleteUserButton from './deleteUserButton';
 
 export default function UserInfo() {
     const [info, setInfo] = useState<any>();
@@ -41,6 +43,8 @@ export default function UserInfo() {
 
   return (
     <>
+        <UpdateUserButton getUserList={getUserList} />
+        <DeleteUserButton getUserList={getUserList} columns={columns}  user={info} />
         <Table columns={columns} dataSource={info} />
     </>
   )

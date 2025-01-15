@@ -24,6 +24,15 @@ const apiGetAllDoctor = () => request.get(`/doctor`);
 const apiGetAllUser = () => request.get(`/user`);
 const apiLogin = (params: any) => request.post(`/login`, params);
 const apiSignUp = (params: any) => request.post(`/user`, params);
+const apiUpdateDoctor = (params: any) => request.put("/doctor", params);
+const apiUpdateDiagnosis = (params: any) => request.put("/diagnosis", params);
+const apiUpdateUser = (params: any) => request.put("/user", params);
+const apiDeletePatient = (params: any) => request.delete("/patient/" + params.toString());
+const apiDeleteDiagnosis = (params: any) => request.delete("/diagnosis/" + params.toString());
+const apiDeleteDoctor = (params: any) => request.delete("/doctor/" + params.toString());
+const apiDeleteFee = (params: any) => request.delete("/fee/" + params.toString());
+const apiDeleteUser = (params: any) => request.delete("/user/" + params.toString());
+const apiInsertDoctor = (params: any) => request.post("/doctor", params)
 
 
 
@@ -48,5 +57,14 @@ export {
     apiGetAllDiagnosis,
     apiGetAllFee,
     apiLogin,
-    apiSignUp
+    apiSignUp,
+    apiUpdateDoctor,
+    apiUpdateDiagnosis,
+    apiUpdateUser,
+    apiDeletePatient,
+    apiDeleteDiagnosis,
+    apiDeleteDoctor,
+    apiDeleteFee,
+    apiDeleteUser,
+    apiInsertDoctor
 }

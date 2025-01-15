@@ -5,7 +5,8 @@ import { useNavigate  } from 'react-router-dom';
 import { apiLogin } from '../../api'
 
 type FieldType = {
-    userName?: string;
+    type?: string;
+    account?: string;
     password?: string;
     remember?: string;
 };
@@ -18,16 +19,16 @@ export default function Login() {
         const {status, data} = res;
         
         if (status === 200 && data) {
-            const username: String = params.userName;
+            const type: String = params.type;
             if (data === "success") {
                 localStorage.setItem("username", params.userName);
-                if (username.includes("patient")) {
+                if (type.includes("patient")) {
                     localStorage.setItem("type", "patient");
-                    navigate("/menu/info");
-                } else if (username.includes("doctor")) {
+                    navigate("/menu/diagnosis");
+                } else if (type.includes("doctor")) {
                     localStorage.setItem("type", "doctor");
                     navigate("/menu/d_diagnosis");
-                } else if (username.includes("admin")) {
+                } else if (type.includes("admin")) {
                     localStorage.setItem("type", "admin");
                     navigate("/menu/patient_admin");
                 }
@@ -66,8 +67,15 @@ export default function Login() {
                 autoComplete="off"
             >
                 <Form.Item<FieldType>
-                label="用户名"
-                name="userName"
+                label="用户类型"
+                name="type"
+                rules={[{ required: true, message: 'Please input your type!' }]}
+                >
+                <Input placeholder="patient/doctor/admin"/>
+                </Form.Item>
+                <Form.Item<FieldType>
+                label="账户"
+                name="account"
                 rules={[{ required: true, message: 'Please input your username!' }]}
                 >
                 <Input />

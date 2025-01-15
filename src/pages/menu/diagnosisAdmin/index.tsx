@@ -1,6 +1,8 @@
 import { Table } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { apiGetAllDiagnosis } from '../../../api';
+import UpdateDiagnosisButton from './updateDiagnosisButton';
+import DeleteDiagnosisButton from './deleteDiagnosisAdmin';
 
 export default function DiagnosisAdmin() {
     const [diagnosis, setDiagnosis] = useState<any>();
@@ -60,7 +62,9 @@ export default function DiagnosisAdmin() {
         }, []);
 
   return (
-    <>
+    <> 
+        <UpdateDiagnosisButton getDiagnosisList={getDiagnosisList} />
+        <DeleteDiagnosisButton getDiagnosisList={getDiagnosisList} columns={columns} diagnosis={diagnosis} />
         <Table columns={columns} dataSource={diagnosis} />
     </>
   )

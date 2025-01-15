@@ -1,39 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useNavigate, useParams  } from 'react-router-dom';
-import { apiSignUp } from '../../api'
-
-type FieldType = {
-    userName?: string;
-    password?: string;
-    remember?: string;
-};
+import { apiUpdateUser } from '../../api'
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const {type} = useParams();
+    // const [status, setStatus] = useState<number>();
+    // const [data, setData] = useState<any>();
 
     const login = async (params: any) => {
-        const res: any = await apiSignUp(params);
-        const {status, data} = res;
+        // params.id = 7;
+        // const res: any = await apiUpdateUser(params);
+        // const {status, data} = res;
         
-        if (status === 200 && data) {
-            if (data === "success") {
-                navigate("/bind-info")
-            } else {
-                console.log("错误");  
+        if (params.type === "doctor") {
+            params.id = 6;
+            const res: any = await apiUpdateUser(params);
+            const {status, data} = res;
+            if (status === 200 && data) {
+                navigate(`/bind-info/doctor`)
             }
-        } else {
-            console.log("请求login接口错误");
+        } else if (params.type === "patient") {
+            params.id = 5;
+            const res: any = await apiUpdateUser(params);
+            const {status, data} = res;
+            if (status === 200 && data) {
+                navigate(`/bind-info/patient`)
+            }
+        } else if (params.type === "admin") {
+            navigate(`/bind-success/admin902/`)
+            // params.id = 7;
+            // const res: any = await apiUpdateUser(params);
+            // const {status, data} = res;
+            // if (status === 200 && data) {
+            //     navigate(`/bind-info/admin`)
+            // }
         }
     } 
 
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    const onFinish: FormProps<any>['onFinish'] = (values) => {
+        console.log("type: ", type);
+        
         console.log('Success:', values);
         login(values);
     };
     
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    const onFinishFailed: FormProps<any>['onFinishFailed'] = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -50,7 +64,14 @@ export default function SignUp() {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
-                <Form.Item<FieldType>
+                <Form.Item<any>
+                label="类型"
+                name="type"
+                rules={[{ required: true, message: 'patient/doctor/admin' }]}
+                >
+                <Input placeholder="patient/doctor/admin" />
+                </Form.Item>
+                <Form.Item<any>
                 label="用户名"
                 name="userName"
                 rules={[{ required: true, message: 'Please input your username!' }]}
@@ -58,7 +79,7 @@ export default function SignUp() {
                 <Input />
                 </Form.Item>
 
-                <Form.Item<FieldType>
+                <Form.Item<any>
                 label="密码"
                 name="password"
                 rules={[{ required: true, message: 'Please input your password!' }]}
